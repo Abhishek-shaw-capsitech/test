@@ -41,12 +41,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI finalScoreText;
     [SerializeField] private TextMeshProUGUI highScoreText;
 
-    // [Header("Audio")]
-    // [SerializeField] private AudioSource bgmSource;
-    // [SerializeField] private AudioSource sfxSource;
-    // [SerializeField] private AudioClip collisionSfx;
-    // [SerializeField] private AudioClip scoreSfx;
-    // [SerializeField] private AudioClip gameOverSfx;
+    [Header("Audio")]
+    [SerializeField] private AudioSource bgmSource;
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip collisionSfx;
+    [SerializeField] private AudioClip scoreSfx;
+    [SerializeField] private AudioClip gameOverSfx;
 
     // [Header("VFX")]
     // [SerializeField] private ParticleSystem collisionParticles;
@@ -60,14 +60,15 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) { Instance = this; } else { Destroy(gameObject); }
+        sfxSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void Start()
     {
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         ChangeState(GameState.MainMenu);
-        // bgmSource.loop = true;
-        // bgmSource.Play();
+        bgmSource.loop = true;
+        bgmSource.Play();
     }
 
     public void ChangeState(GameState newState)
@@ -109,7 +110,7 @@ public class GameManager : MonoBehaviour
                 finalScoreText.text = "SCORE: " + score;
                 highScoreText.text = "HIGH: " + highScore;
 
-                // sfxSource.PlayOneShot(gameOverSfx);
+                sfxSource.PlayOneShot(gameOverSfx);
                 spawner.StopSpawning();
                 break;
         }
@@ -125,7 +126,7 @@ public class GameManager : MonoBehaviour
     {
         score += 1;
         scoreText.text = score.ToString();
-        // sfxSource.PlayOneShot(scoreSfx);
+        sfxSource.PlayOneShot(scoreSfx);
         // if(scoreParticles) scoreParticles.Play();
     }
 
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentState == GameState.GameOver) return;
 
-        // sfxSource.PlayOneShot(collisionSfx);
+        sfxSource.PlayOneShot(collisionSfx);
         // if(collisionParticles) collisionParticles.Play(); // Play at player's position
         ChangeState(GameState.GameOver);
     }
