@@ -99,9 +99,14 @@ public class InputManager : MonoBehaviour
         // Subscribe to the touch events
         playerControls.Game.PrimaryContact.started += OnTouchStart;
         playerControls.Game.PrimaryContact.canceled += OnTouchEnd;
-        
+
         // Enable the action map
         playerControls.Game.Enable();
+        
+        playerControls.Game.MoveUp.performed += ctx => playerController.SetLane(2);
+        playerControls.Game.MoveDown.performed += ctx => playerController.SetLane(0);
+        playerControls.Game.MoveLeft.performed += ctx => playerController.SetLane(3);
+        playerControls.Game.MoveRight.performed += ctx => playerController.SetLane(1);
     }
 
     // OnDisable is used to unsubscribe from events and disable controls
@@ -110,9 +115,16 @@ public class InputManager : MonoBehaviour
         // Unsubscribe to prevent errors
         playerControls.Game.PrimaryContact.started -= OnTouchStart;
         playerControls.Game.PrimaryContact.canceled -= OnTouchEnd;
-        
+
         // Disable the action map
         playerControls.Game.Disable();
+        
+        playerControls.Game.MoveUp.performed -= ctx => playerController.SetLane(2);
+        playerControls.Game.MoveDown.performed -= ctx => playerController.SetLane(0);
+        playerControls.Game.MoveLeft.performed -= ctx => playerController.SetLane(3);
+        playerControls.Game.MoveRight.performed -= ctx => playerController.SetLane(1);
+
+        
     }
 
     private void OnTouchStart(InputAction.CallbackContext context)

@@ -132,16 +132,61 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject[] obstaclePrefabs; // Drag all 3 prefabs here
 
     [Header("Spawning")]
-    [SerializeField] private float spawnDistance = 100f;
+    // [SerializeField] private float spawnDistance = 70f;
 
-    // Difficulty scaling
-    [Header("Difficulty")]
-    [SerializeField] private float baseSpawnInterval = 4.0f;
-    [SerializeField] private float baseSpeed = 5.0f;
-    [SerializeField] private float difficultyTimeStep = 10f;
-    [SerializeField] private float speedIncrease = 1.0f;
-    [SerializeField] private float spawnIntervalDecrease = 0.1f;
-    [SerializeField] private float minSpawnInterval = 0.8f;
+    // // Difficulty scaling
+    // [Header("Difficulty")]
+    // [SerializeField] private float baseSpawnInterval = 4.0f;
+    // [SerializeField] private float baseSpeed = 5.0f;
+    // [SerializeField] private float difficultyTimeStep = 10f;
+    // [SerializeField] private float speedIncrease = 1.0f;
+    // [SerializeField] private float spawnIntervalDecrease = 0.1f;
+    // [SerializeField] private float minSpawnInterval = 0.8f;
+
+
+    // [SerializeField] private float spawnDistance = 70f;
+
+    // // Difficulty scaling
+    // [Header("Difficulty")]
+    // [SerializeField] private float baseSpawnInterval = 4.0f;
+    // [SerializeField] private float baseSpeed = 5.0f;
+    // [SerializeField] private float difficultyTimeStep = 10f;
+    // [SerializeField] private float speedIncrease = 1.0f;
+    // [SerializeField] private float spawnIntervalDecrease = 0.1f;
+    // [SerializeField] private float minSpawnInterval = 0.8f;
+
+
+
+
+
+    //     [SerializeField] private float spawnDistance = 60f;
+
+    // // Difficulty scaling
+    // [Header("Difficulty")]
+    // [SerializeField] private float baseSpawnInterval = 2.5f;
+    // [SerializeField] private float baseSpeed = 8.0f;
+    // [SerializeField] private float difficultyTimeStep = 10f;
+    // [SerializeField] private float speedIncrease = 0.5f;
+    // [SerializeField] private float spawnIntervalDecrease = 0.05f;
+    //     [SerializeField] private float minSpawnInterval = 1.0f;
+
+
+
+[SerializeField] private float spawnDistance = 60f;
+
+// Difficulty scaling
+[Header("Difficulty")]
+[SerializeField] private float baseSpawnInterval = 2.5f;
+[SerializeField] private float baseSpeed = 8.0f;
+[SerializeField] private float difficultyTimeStep = 8f;     // <-- FASTER RAMP
+[SerializeField] private float speedIncrease = 0.5f;
+[SerializeField] private float spawnIntervalDecrease = 0.15f;   // <-- MUCH FASTER RAMP
+    [SerializeField] private float minSpawnInterval = 1.0f;
+
+
+
+
+
 
     // private float currentSpeed;
     // Public and static means any script can read this value

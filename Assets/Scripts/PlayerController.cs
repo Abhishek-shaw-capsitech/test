@@ -225,13 +225,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // --- DEBUG: PC Arrow Key Controls ---
-        if (Input.GetKeyDown(KeyCode.DownArrow)) SetLane(0);
-        else if (Input.GetKeyDown(KeyCode.RightArrow)) SetLane(1);
-        else if (Input.GetKeyDown(KeyCode.UpArrow)) SetLane(2);
-        else if (Input.GetKeyDown(KeyCode.LeftArrow)) SetLane(3);
+    //     // --- DEBUG: PC Arrow Key Controls ---
+    //     if (Input.GetKeyDown(KeyCode.DownArrow)) SetLane(0);
+    //     else if (Input.GetKeyDown(KeyCode.RightArrow)) SetLane(1);
+    //     else if (Input.GetKeyDown(KeyCode.UpArrow)) SetLane(2);
+    //     else if (Input.GetKeyDown(KeyCode.LeftArrow)) SetLane(3);
         
-        // Smoothly rotate
+    //     // Smoothly rotate
         transform.rotation = Quaternion.Lerp(
             transform.rotation,
             targetRotation,

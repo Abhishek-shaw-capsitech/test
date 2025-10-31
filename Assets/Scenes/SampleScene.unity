@@ -2723,13 +2723,13 @@ MonoBehaviour:
   - {fileID: 8384316778924790201, guid: cf4639974b9b4a64abb739534ab86e3a, type: 3}
   - {fileID: 1420649914182347654, guid: 76478adbc199a7c4f9e56722fbc1fadc, type: 3}
   - {fileID: 4401023028457625324, guid: 2e51d54a3ad53a54fbe2d22eea5643d3, type: 3}
-  spawnDistance: 100
-  baseSpawnInterval: 4
-  baseSpeed: 5
-  difficultyTimeStep: 10
-  speedIncrease: 1
-  spawnIntervalDecrease: 0.1
-  minSpawnInterval: 0.8
+  spawnDistance: 60
+  baseSpawnInterval: 2.5
+  baseSpeed: 8
+  difficultyTimeStep: 8
+  speedIncrease: 0.5
+  spawnIntervalDecrease: 0.15
+  minSpawnInterval: 1
 --- !u!4 &1624454017
 Transform:
   m_ObjectHideFlags: 0
