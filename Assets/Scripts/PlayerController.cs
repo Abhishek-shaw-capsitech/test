@@ -212,9 +212,9 @@ public class PlayerController : MonoBehaviour
     private Quaternion targetRotation;
     private readonly Quaternion[] laneRotations = {
         Quaternion.Euler(0, 0, 0),    // Bottom
-        Quaternion.Euler(0, 0, -90),  // Right
+        Quaternion.Euler(0, 0, 90),  // Right
         Quaternion.Euler(0, 0, 180),  // Top
-        Quaternion.Euler(0, 0, 90)    // Left
+        Quaternion.Euler(0, 0, -90)    // Left
     };
 
     void Start()
