@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip collisionSfx;
     [SerializeField] private AudioClip scoreSfx;
     [SerializeField] private AudioClip gameOverSfx;
+    [SerializeField] private GameObject pausePanel;
 
     // [Header("VFX")]
     // [SerializeField] private ParticleSystem collisionParticles;
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
     private int score;
     private int highScore;
 
-    public enum GameState { MainMenu, Playing, GameOver }
+    public enum GameState { MainMenu, Playing, GameOver, Paused }
 
     private void Awake()
     {
@@ -71,6 +72,51 @@ public class GameManager : MonoBehaviour
         bgmSource.Play();
     }
 
+    // public void ChangeState(GameState newState)
+    // {
+    //     CurrentState = newState;
+    //     switch (newState)
+    //     {
+    //         case GameState.MainMenu:
+    //             Time.timeScale = 0f;
+    //             startScreen.SetActive(true);
+    //             inGameHUD.SetActive(false);
+    //             endScreen.SetActive(false);
+    //             break;
+
+    //         case GameState.Playing:
+    //             score = 0;
+    //             scoreText.text = score.ToString();
+    //             Time.timeScale = 1f;
+
+    //             startScreen.SetActive(false);
+    //             inGameHUD.SetActive(true);
+    //             endScreen.SetActive(false);
+
+    //             player.ResetPosition();
+    //             spawner.StartSpawning();
+    //             break;
+
+    //         case GameState.GameOver:
+    //             Time.timeScale = 0f;
+
+    //             inGameHUD.SetActive(false);
+    //             endScreen.SetActive(true);
+
+    //             if (score > highScore)
+    //             {
+    //                 highScore = score;
+    //                 PlayerPrefs.SetInt("HighScore", highScore);
+    //             }
+    //             finalScoreText.text = "SCORE: " + score;
+    //             highScoreText.text = "HIGH: " + highScore;
+
+    //             sfxSource.PlayOneShot(gameOverSfx);
+    //             spawner.StopSpawning();
+    //             break;
+    //     }
+    // }
+
     public void ChangeState(GameState newState)
     {
         CurrentState = newState;
@@ -81,38 +127,29 @@ public class GameManager : MonoBehaviour
                 startScreen.SetActive(true);
                 inGameHUD.SetActive(false);
                 endScreen.SetActive(false);
+                pausePanel.SetActive(false); // <-- ADD THIS
                 break;
 
             case GameState.Playing:
-                score = 0;
-                scoreText.text = score.ToString();
+                // ... (your code) ...
                 Time.timeScale = 1f;
-
                 startScreen.SetActive(false);
                 inGameHUD.SetActive(true);
                 endScreen.SetActive(false);
-
-                player.ResetPosition();
+                pausePanel.SetActive(false); // <-- ADD THIS
                 spawner.StartSpawning();
                 break;
 
             case GameState.GameOver:
                 Time.timeScale = 0f;
-
                 inGameHUD.SetActive(false);
                 endScreen.SetActive(true);
-
-                if(score > highScore)
-                {
-                    highScore = score;
-                    PlayerPrefs.SetInt("HighScore", highScore);
-                }
-                finalScoreText.text = "SCORE: " + score;
-                highScoreText.text = "HIGH: " + highScore;
-
-                sfxSource.PlayOneShot(gameOverSfx);
+                pausePanel.SetActive(false); // <-- ADD THIS
+                                             // ... (your code) ...
                 spawner.StopSpawning();
                 break;
+
+                // We don't need a "case" for Paused, because TogglePause() handles it.
         }
     }
 
@@ -138,4 +175,33 @@ public class GameManager : MonoBehaviour
         // if(collisionParticles) collisionParticles.Play(); // Play at player's position
         ChangeState(GameState.GameOver);
     }
+
+    // This function will be called by your "Resume" and "Pause" buttons
+    public void TogglePause()
+    {
+        if (CurrentState == GameState.Playing)
+        {
+            // Pause the game
+            CurrentState = GameState.Paused;
+            Time.timeScale = 0f; // This freezes all physics and movement
+            pausePanel.SetActive(true);
+        }
+        else if (CurrentState == GameState.Paused)
+        {
+            // Un-pause the game
+            CurrentState = GameState.Playing;
+            Time.timeScale = 1f; // This un-freezes the game
+            pausePanel.SetActive(false);
+        }
+    }
+
+    // This will be called by your "Exit to Menu" button
+    public void ExitToMainMenu()
+    {
+        // Must un-pause time before going to the menu
+        Time.timeScale = 1f;
+        ChangeState(GameState.MainMenu);
+    }
+
+
 }
