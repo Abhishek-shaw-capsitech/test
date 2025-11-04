@@ -5,13 +5,13 @@
 //     // Start is called once before the first execution of Update after the MonoBehaviour is created
 //     void Start()
 //     {
-        
+
 //     }
 
 //     // Update is called once per frame
 //     void Update()
 //     {
-        
+
 //     }
 // }
 
@@ -117,6 +117,42 @@ public class GameManager : MonoBehaviour
     //     }
     // }
 
+    // public void ChangeState(GameState newState)
+    // {
+    //     CurrentState = newState;
+    //     switch (newState)
+    //     {
+    //         case GameState.MainMenu:
+    //             Time.timeScale = 0f;
+    //             startScreen.SetActive(true);
+    //             inGameHUD.SetActive(false);
+    //             endScreen.SetActive(false);
+    //             pausePanel.SetActive(false); // <-- ADD THIS
+    //             break;
+
+    //         case GameState.Playing:
+    //             // ... (your code) ...
+    //             Time.timeScale = 1f;
+    //             startScreen.SetActive(false);
+    //             inGameHUD.SetActive(true);
+    //             endScreen.SetActive(false);
+    //             pausePanel.SetActive(false); // <-- ADD THIS
+    //             spawner.StartSpawning();
+    //             break;
+
+    //         case GameState.GameOver:
+    //             Time.timeScale = 0f;
+    //             inGameHUD.SetActive(false);
+    //             endScreen.SetActive(true);
+    //             pausePanel.SetActive(false); // <-- ADD THIS
+    //                                          // ... (your code) ...
+    //             spawner.StopSpawning();
+    //             break;
+
+    //             // We don't need a "case" for Paused, because TogglePause() handles it.
+    //     }
+    // }
+
     public void ChangeState(GameState newState)
     {
         CurrentState = newState;
@@ -127,16 +163,22 @@ public class GameManager : MonoBehaviour
                 startScreen.SetActive(true);
                 inGameHUD.SetActive(false);
                 endScreen.SetActive(false);
-                pausePanel.SetActive(false); // <-- ADD THIS
+                pausePanel.SetActive(false); // Hide pause panel
                 break;
 
             case GameState.Playing:
-                // ... (your code) ...
+                // --- THIS IS THE OLD LOGIC YOU WERE MISSING ---
+                score = 0;
+                scoreText.text = score.ToString();
+                player.ResetPosition();
+                // --- END OF MISSING LOGIC ---
+
                 Time.timeScale = 1f;
                 startScreen.SetActive(false);
                 inGameHUD.SetActive(true);
                 endScreen.SetActive(false);
-                pausePanel.SetActive(false); // <-- ADD THIS
+                pausePanel.SetActive(false); // Hide pause panel
+                
                 spawner.StartSpawning();
                 break;
 
@@ -144,12 +186,24 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0f;
                 inGameHUD.SetActive(false);
                 endScreen.SetActive(true);
-                pausePanel.SetActive(false); // <-- ADD THIS
-                                             // ... (your code) ...
+                pausePanel.SetActive(false); // Hide pause panel
+
+                // --- THIS IS THE OLD LOGIC YOU WERE MISSING ---
+                if (score > highScore)
+                {
+                    highScore = score;
+                    PlayerPrefs.SetInt("HighScore", highScore);
+                }
+                finalScoreText.text = "Your Score: " + score;
+                highScoreText.text = "Highest Score: " + highScore;
+
+                sfxSource.PlayOneShot(gameOverSfx);
+                // --- END OF MISSING LOGIC ---
+
                 spawner.StopSpawning();
                 break;
 
-                // We don't need a "case" for Paused, because TogglePause() handles it.
+            // We don't need a "case" for Paused, because TogglePause() handles it.
         }
     }
 

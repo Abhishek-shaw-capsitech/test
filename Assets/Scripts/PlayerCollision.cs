@@ -92,6 +92,8 @@ public class PlayerCollision : MonoBehaviour
         Obstacle obstacle = other.GetComponent<Obstacle>();
         if (obstacle == null) return;
         
+    Debug.Log("COLLISION! Player is: " + playerController.currentShape + " | Obstacle is: " + obstacle.shapeType);
+
         // Check for a shape match
         if (obstacle.shapeType == playerController.currentShape)
         {
